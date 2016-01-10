@@ -17,13 +17,13 @@ public:
 	void addLeft(T current,T left);
 	void addRight(T current,T right);
 	bool isEmpty();
-	void preOrder(LLBTN<T>*r);
+	void preOrder(LLBTN<T>*r);  //第六单元 上机第十二  题
 	void inOrder(LLBTN<T>*r);
-	void postOrder(LLBTN<T>*r);
+	void postOrder(LLBTN<T>*r);  // 第六单元 上机第十三  题
 	LLBTN<T>*&getRoot();
-	void findNPIn(T p);
-	void findNPpre(T p);
-	void findNPPost(T p);
+	void findNPIn(T p);    //
+	void findNPpre(T p);    //第六单元 上机第十二  题
+	void findNPPost(T p);   // 第六单元 上机第十三  题
 	
 private:
 	LLBTN<T>* find(LLBTN<T>*p,T &e);
@@ -44,7 +44,7 @@ void LLBT<T>::findNPIn(T p){
 }
 // =================================================
 template<class T>
-void LLBT<T>::findNPpre(T p){
+void LLBT<T>::findNPpre(T p){     // 第六单元 上机第十二  题
 	LLBTN<T>*t=NULL;
 	preOrderT(root,t);
 	LLBTN<T>*temp=find(root,p);
@@ -54,7 +54,7 @@ void LLBT<T>::findNPpre(T p){
 
 
 template<class T>
-void LLBT<T>::findNPPost(T p){
+void LLBT<T>::findNPPost(T p){         // 第六单元 上机第十三  题
 	LLBTN<T>*t=NULL;
 	postOrderT(root,t);
 	LLBTN<T>*temp=find(root,p);
@@ -85,7 +85,7 @@ void LLBT<T>::inOrderT(LLBTN<T>*p,LLBTN<T>*&pre){
 
 
 template<class T>
-void LLBT<T>::preOrderT(LLBTN<T>*p,LLBTN<T>*&pre){
+void LLBT<T>::preOrderT(LLBTN<T>*p,LLBTN<T>*&pre){    // 第六单元 上机第十二  题
 	if(p!=NULL){
 		
 		if(p->leftChild==NULL){
@@ -105,7 +105,7 @@ void LLBT<T>::preOrderT(LLBTN<T>*p,LLBTN<T>*&pre){
 }
 
 template<class T>
-void LLBT<T>::postOrderT(LLBTN<T>*p,LLBTN<T>*&pre){
+void LLBT<T>::postOrderT(LLBTN<T>*p,LLBTN<T>*&pre){    // 第六单元 上机第十三  题
 	if(p!=NULL){
 		postOrderT(p->leftChild,pre);
 		postOrderT(p->rightChild,pre);
