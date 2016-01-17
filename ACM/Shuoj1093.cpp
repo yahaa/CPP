@@ -9,26 +9,21 @@ int main(){
 	b[1]=a[1];
 	b[2]=a[2];
 	sort(b,b+3);
-	cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
-	while(next_permutation(b,b+3))cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
+	do{cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;}while(next_permutation(b,b+3));
 	b[0]=a[0];
 	b[1]=a[1];
 	b[2]=a[3];
 	sort(b,b+3);
-	cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
-	while(next_permutation(b,b+3))cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
+	do{cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;}while(next_permutation(b,b+3));
 	b[0]=a[0];
 	b[1]=a[2];
 	b[2]=a[3];
 	sort(b,b+3);
-	cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
-	while(next_permutation(b,b+3))cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
+	do{cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;}while(next_permutation(b,b+3));
 	b[0]=a[3];
 	b[1]=a[1];
 	b[2]=a[2];
 	sort(b,b+3);
-	cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
-	while(next_permutation(b,b+3))cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;
-
+	do{cout<<b[0]<<" "<<b[1]<<" "<<b[2]<<endl;}while(next_permutation(b,b+3));
 	return 0;
 }

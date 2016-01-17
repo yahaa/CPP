@@ -88,7 +88,7 @@ int main(){
 	c.preOrder(c.getRoot());
 	
 	c.findNPpre(20);   //测试  // 第六单元 上机第十二  题
-	//c.findNPPost(20);   //测试  // 第六单元 上机第十三  题
+	//c.findNPPost(20);   //测试  // 第六单元 上机第十三  题     注意两题不能同时测试
 	cout<<endl; 
 
 return 0;
