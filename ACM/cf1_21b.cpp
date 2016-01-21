@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-int main(){
+int main(){   //水题
 	int base[]={6,2,5,5,4,5,6,3,7,6};
 	int a,b;
 	while(cin>>a>>b){
