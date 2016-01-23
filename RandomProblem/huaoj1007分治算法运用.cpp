@@ -28,7 +28,6 @@ double findans(int l, int r){
 	int cnt = 0;
 	for (int i = l; i <= r; i++){
 		if (xy[i].x >= xy[mid].x - ans&&xy[i].x <= xy[mid].x + ans)index[cnt++] = i;
-
 	}
 	sort(index, index + cnt, comparey);
 	for (int i = 0; i < cnt; i++)
@@ -43,7 +42,7 @@ int main(){
 	while (scanf("%d",&n)&&n){
 		for (int i = 0; i < n; i++)scanf("%lf%lf", &xy[i].x, &xy[i].y);
 		sort(xy, xy + n, comparex);
-		printf("%.2lf%\n", findans(0, n - 1) / 2);
+		printf("%.2lf\n", findans(0, n - 1) / 2);
 	}
 	return 0;
 }

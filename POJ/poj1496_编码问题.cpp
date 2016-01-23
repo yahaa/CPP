@@ -41,13 +41,12 @@ void init(){
 	}
 }
 int main(){
-
 	init();                       //动态规划   求解所有的组合数
 	char ch[11];
 	while (cin >> ch){
 		int flag = 1;
 		int ans = 0;
-		int len = strlen(ch);;
+		int len = strlen(ch);
 		for (int i = 1; i < len; i++){                         //检测输入的字符串是否是按顺序给的    
 			if (ch[i - 1] >= ch[i]){
 				flag = 0;
@@ -67,10 +66,8 @@ int main(){
 					temp++;
 				}
 			}
-
 			cout << ++ans << endl;
 		}
-		
 	}
 	return 0;
 }

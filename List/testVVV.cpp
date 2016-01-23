@@ -24,7 +24,7 @@ int Ackmans(int  m,int n)        //调用STL    中的   栈        #include<stack>  
 	   ans.push(m);                                   //把m  放入栈顶
 		while (!ans.empty()){
 			m = ans.top();        //去当前栈顶进行操作
-		//	cout << ans.size() << endl;        //用于跟踪栈的元素个数情况   
+		                              //	cout << ans.size() << endl;        //用于跟踪栈的元素个数情况   
 			ans.pop();                //把当前栈顶  删除
 			if (m == 0){             //模拟分段函数的   第一个条件
 				n = n + 1;

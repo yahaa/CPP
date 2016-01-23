@@ -1,6 +1,6 @@
-#include<iostream>
-#include<algorithm>
-#include<cstdio>
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
 using namespace std;
 const int MAXN = 1024;
 int main(){
