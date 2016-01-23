@@ -1,5 +1,4 @@
 #include <iostream>  
-
 using namespace std;  
 const int maxn= 10001;   
 int c1[maxn], c2[maxn]; 
@@ -14,7 +13,7 @@ void   muhanshu(int n){
         for(j=0; j<=n; ++j) 
             for(k=0; k+j<=n; k+=i){  
                 c2[j+k] += c1[j];  
-            }  
+            }
             for(j=0; j<=n; ++j){  
                 c1[j] = c2[j];  
                 c2[j] = 0;  
@@ -23,10 +22,12 @@ void   muhanshu(int n){
 }
 int main(){  
     int nNum;
-    
-    while(cin >> nNum)  { 
+    while(cin >> nNum){ 
         muhanshu(nNum); 
         cout << c1[nNum] << endl;  
     }  
     return 0;  
 }  
+
+
+
