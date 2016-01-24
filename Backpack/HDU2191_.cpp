@@ -1,4 +1,4 @@
-#include <iostream>  
+#include <iostream>    //多重背包 二进制转换成 01 背包
 #include <string.h>  
 #include <stdio.h>  
   
