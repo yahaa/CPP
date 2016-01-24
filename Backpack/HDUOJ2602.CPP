@@ -5,20 +5,29 @@ using namespace std;
 typedef long long ll;
 const int maxn=1002;
 ll dp[maxn][maxn];
+ll f[maxn];
 ll value[maxn],weight[maxn];
 int main(){
 	int t;
 	cin>>t;
 	while(t--){
 		memset(dp,0,sizeof(dp));
+		memset(f,0,sizeof(f));
 		int  n,v;
 		cin>>n>>v;
 		for(int i=1;i<=n;i++)cin>>weight[i];
 		for(int i=1;i<=n;i++)cin>>value[i];
-		for(int i=1;i<=n;i++){
+
+		for(int i=1;i<=n;i++){    //二维数组的实现方式
 			for(int j=v;j>=0;j--){
 				if (j>=value[i])dp[i][j]=max(dp[i-1][j],dp[i-1][j-value[i]]+weight[i]);    
 				else dp[i][j]=dp[i-1][j];
+			}
+		}
+
+		for(int i=1;i<=n;i++){   //滚滚动数组实现
+			for(int j=v;j>=0;j--){
+				if(j>=value[i])f[j]=max(f[j],f[j-value[i]]+weight[i]);
 			}
 		}
 
@@ -28,6 +37,7 @@ int main(){
 				else cout<<dp[i][j]<<endl;
 			}
 		cout<<dp[n][v]<<endl;
+		cout<<f[v]<<endl;
 	}
 	return 0;
 }
