@@ -12,8 +12,8 @@ int main(){
 		double p;
 		for(int i=1;i<=m;i++){
 			cin>>value>>p;
-			for(int j=total;j>=0;j--){   //滚动数组  求解01 背包问题， 用二维数组做会挂空间
-				if(j>=value)dp[j]=min(dp[j],dp[j-value]*(1.0-p));
+			for(int j=total;j>=value;j--){   //滚动数组  求解01 背包问题， 用二维数组做会挂空间
+				dp[j]=min(dp[j],dp[j-value]*(1.0-p));
 			}
 		}
 		printf("%.1f%%\n",(1.0-dp[total])*100);

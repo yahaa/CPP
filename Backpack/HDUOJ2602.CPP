@@ -26,8 +26,8 @@ int main(){
 		}
 
 		for(int i=1;i<=n;i++){   //滚滚动数组实现
-			for(int j=v;j>=0;j--){
-				if(j>=value[i])f[j]=max(f[j],f[j-value[i]]+weight[i]);
+			for(int j=v;j>=value[i];j--){
+				f[j]=max(f[j],f[j-value[i]]+weight[i]);
 			}
 		}
 
