@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>   //water
 #include <string>
 #include <algorithm>
 #include <cstring>
@@ -30,4 +30,5 @@ int main(){
 		sort(p,p+n,cmp);
 		for(int i=0;i<n;i++)cout<<p[i].name<<endl;
 	}
+return 0;
 }
