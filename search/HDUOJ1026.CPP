@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>       //搜索题　广度搜索   bfs
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -27,7 +27,7 @@ void init(){
     while(!ans.empty())ans.pop();
 }
 
-void bfs(int x,int y){
+void bfs(int x,int y){    //用队列实现
     queue<pair<int,int> >a;
     a.push(make_pair(x,y));
     vist[x][y]=1;
@@ -39,9 +39,9 @@ void bfs(int x,int y){
             int tx=x+drx[i];
             int ty=y+dry[i];
             if((tx>=0&&tx<n&&ty>=0&&ty<m)&&maps[tx][ty]!='X'){
-                int step=isdigit(maps[tx][ty])?(maps[tx][ty]-'0'+1):1;
+                int step=isdigit(maps[tx][ty])?(maps[tx][ty]-'0'+1):1;      //和通常的做法不同的是不用vis数组
                 if((dis[tx][ty]==0 &&!(tx==0&&ty==0))|| dis[tx][ty]>dis[x][y]+step){
-                    dis[tx][ty]=dis[x][y]+step;
+                    dis[tx][ty]=dis[x][y]+step;  //因为还要比较该走是最优的
                     a.push(make_pair(tx,ty));
                     b[tx][ty]=x+maxn*y;
                 }

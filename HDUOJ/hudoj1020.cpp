@@ -13,7 +13,6 @@ string ans;
 		for (int i = 0; i < in.length()-1; i++){
 			int num = 0;
 			for (int j = i+1; j < in.length(); j++){
-				
 				if (ans.empty() || find(ans.begin(), ans.end(), in[i]) - ans.begin() >= ans.size()){
 					if (in[i] == in[j])num++;
 					if (num>1){

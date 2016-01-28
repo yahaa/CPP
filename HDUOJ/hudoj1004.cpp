@@ -1,8 +1,9 @@
-#include<iostream>
-#include<string>
-#include<map>
-#include<cstring>
-#include<algorithm>
+#include <iostream>
+#include <string>
+#include <map>
+#include <cstring>
+#include <algorithm>
+#include <cstdio>
 using namespace std;
 int main(){
 	int t;

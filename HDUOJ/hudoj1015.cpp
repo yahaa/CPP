@@ -12,7 +12,7 @@ int main(){
 		for (int x = 26; x >= 1; x--)
 		for (int y = 26; y >= 1; y--)
 		for (int z = 26; z >= 1; z--){
-			ans = pow(v, 1) - pow(w, 2) + pow(x, 3) - pow(y, 4) + pow(z, 5);
+			ans = pow(v, 1.0) - pow(w, 2.0) + pow(x, 3.0) - pow(y, 4.0) + pow(z, 5.0);
 			if (ans == target){
 				v1 = v;
 				w1 = w;
