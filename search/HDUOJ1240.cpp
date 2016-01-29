@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm>
+#include <algorithm> //BFS  输入的地方有点特殊，其他还是一样的
 #include <cstdio>
 #include <queue>
 #include <string>
@@ -47,12 +47,12 @@ int main(){
 		starti=starti+slices1*m;
 		endi=endi+slices2*m;
 		bfs(starti,startj);
-		
+
 		if(starti==endi&&startj==endj)cout<<m<<" "<<0<<endl;
 		else {
 			if(dis[endi][endj])cout<<m<<" "<<dis[endi][endj]<<endl;
 			else cout<<"NO ROUTE"<<endl;
 		}
 	}
-
+	return 0;
 }
