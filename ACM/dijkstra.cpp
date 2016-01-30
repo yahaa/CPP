@@ -1,4 +1,7 @@
-//Dijkstra(迪杰斯特拉)算法是典型的单源最短路径算法
+//Dijkstra　　　未优化版本
+
+//适用于　　单源无向且边权值为非负
+
 
 void Dijkstra(int s, int n){      //把图上的所有点分为　　走过　　　和　　未走过   两个集合
     for (int i = 0; i < n; i++)dis[i] = INF;
