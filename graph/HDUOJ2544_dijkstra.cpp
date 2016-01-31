@@ -1,9 +1,9 @@
 #include<iostream>         //双向边添加时刻要记住，错误多次
 #include<cstdlib>          //(1)当权值为非负时，用Dijkstra。
 #include<algorithm>        //(2)当权值有负值，且没有负圈，则用SPFA，SPFA能检测负圈，但是不能输出负圈。
-using namespace std;       //(4)SPFA检测负环：当存在一个点入队大于等于V次，则有负环，后面有证明。
+using namespace std;      
 const int MAXN = 2100;     //(3)当权值有负值，而且可能存在负圈，则用BellmanFord，能够检测并输出负圈。    
-int G[MAXN][MAXN];
+int G[MAXN][MAXN];         //(4)SPFA检测负环：当存在一个点入队大于等于V次，则有负环，后面有证明。
 int vis[MAXN];
 int dis[MAXN];
 const int INF = 0x3FFFFFFF;         //最短路－－－－－－dijkstra
