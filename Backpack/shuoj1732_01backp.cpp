@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cstring>
 using namespace std;
-const int maxn=51;
+const int maxn=505;
 int dp[maxn];
 int value[maxn],weight[maxn];
 int main(){
