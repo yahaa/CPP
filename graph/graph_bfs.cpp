@@ -47,5 +47,5 @@ int main(){
 
 		bfs(1);
 	}
-
+	return 0;
 }
