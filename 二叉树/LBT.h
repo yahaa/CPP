@@ -1,14 +1,16 @@
 #ifndef LBT_
 #define LBT_
 #include"LBTN.h"
-#include<iostream>
-#include<cmath>
-#include<algorithm>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
 using namespace std;
 template<class T>
 class LBT{
 protected:
 	LbinTreeNode<T>*root;
+	int a[100];
 public:
 	LBT();
 	LBT(const T p);
@@ -30,7 +32,8 @@ public:
 	void deleteLeft(T p);
 	void deleteRight(T p);
 	//第六章上机第9 题
-	friend int breadth(LbinTreeNode<T>*t);   
+	void breadth(LbinTreeNode<T>*t,int i); 
+	int getBreadth();  
 	//链式二叉树的友员
 
 	int numberNode(LbinTreeNode<T>*r);
@@ -39,6 +42,30 @@ private:
 	
 };
 #endif
+
+
+template<class T>      //第六章上机第9 题
+void LBT<T>::breadth(LbinTreeNode<T>*t,int i){
+	if(t!=NULL){
+		if(i==0)a[0]=1;
+		if(t->leftChild!=NULL)a[i+1]++;
+		if(t->rightChild!=NULL)a[i+1]++;
+		breadth(t->leftChild,i+1);
+		breadth(t->rightChild,i+1);
+	}
+	
+}
+template<class T> 
+int LBT<T>::getBreadth(){
+	breadth(root,0);
+	int maxn=0;
+	for(int i=0;i<10;i++){
+		cout<<a[i]<<endl;
+		maxn=max(maxn,a[i]);
+	}
+	return maxn;
+}
+
 
 template<class T>
 int LBT<T>::numberNode(LbinTreeNode<T>*r){    //第六单元 14 题
@@ -63,16 +90,7 @@ LbinTreeNode<T>*LBT<T>::findParent(LbinTreeNode<T>*r, T p){
 	
 }
 
-// template<class T>
-// T LBT<T>::getParent(T p){
-// 	LbinTreeNode<T>*temp=findParent(root,p);
-// 	if(temp==NULL){
-// 		cout<<p<<" have not parent"<<endl;
-// 		exit(0);
-// 	}
 
-// 	return temp->date;
-// }
 
 template<class T>
 LbinTreeNode<T>* LBT<T>::find(LbinTreeNode<T>*p,T &e){
@@ -87,6 +105,7 @@ LbinTreeNode<T>* LBT<T>::find(LbinTreeNode<T>*p,T &e){
 template<class T>
 LBT<T>::LBT(){
 	root=NULL;
+	memset(a,0,sizeof(a));
 }
 
 template<class T>

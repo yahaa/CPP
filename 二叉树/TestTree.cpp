@@ -1,34 +1,9 @@
 #include"ArrayTree.h"
 #include"LBT.h"
 #include"LLBT.h"
-#include<iostream>
-using namespace std;
+#include <iostream>
 
-const int mx=100;     //假设有100层
-int a[mx];
-int i=0;
-template<class T>      //第六章上机第9 题
-int breadth(LbinTreeNode<T>*t){
-	int maxn=0;
-	if(t!=NULL){
-	if(i==0){   //第一层特殊处理
-		a[0]=1;
-		i++;
-		if(t->leftChild!=NULL) a[i]++;
-		if(t->rightChild!=NULL) a[i]++;
-	}
-	else{
-		i++;
-		if(t->leftChild!=NULL) a[i]++;
-		if(t->rightChild!=NULL) a[i]++;
-	}
-	maxn=max(maxn,a[i]);
-	breadth(t->leftChild);
-	i--;   //退回上层 以便于求右边的情况
-	breadth(t->rightChild);
-	}
-return maxn;
-}
+using namespace std;
 int main(){
 	ArrayTree<int>a;
 	a.buildRoot(10);
@@ -38,6 +13,7 @@ int main(){
 	a.addLeft(6,12);
 	a.addRight(8,1);
 	a.addLeft(8,2);
+	cout<<"第六章上机第七题"<<endl;
 	cout<<a.closetRoot(12,2)<<endl;   //第六章上机第七题
 	a.levelOrder();
 	cout<<endl;
@@ -52,20 +28,26 @@ int main(){
 	b.buildRoot(10);
 	b.addLeft(10,5);
 	b.addRight(10,6);
+	//b.addRight(6, 100);
 	b.addLeft(5,1);
+	//b.addRight(5, 113);
 	b.addLeft(1,9);
 	b.addRight(1,3);
 	b.addLeft(9,20);
+	b.addRight(9, 34);
 	b.addLeft(6,18);
-	b.addLeft(18,30);
+	//b.addLeft(18,30);
+	//b.addRight(18, 111);
 	b.preOrder(b.getRoot());
 	cout<<endl;
 	b.inOrder(b.getRoot());
 	cout<<endl;
 	b.postOrder(b.getRoot());
 	cout<<endl;
-	cout<<breadth(b.getRoot());   //第六章上机第9 题
+	cout<<"第六章上机第9 题"<<endl;
+	cout<<b.getBreadth();  //第六章上机第9 题
 	cout<<endl;
+	cout<<"第六单元 14 题"<<endl;
 	cout<<b.numberNode(b.getRoot())<<endl;   //第六单元 14 题
 
 
