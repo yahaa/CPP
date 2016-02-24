@@ -87,7 +87,6 @@ void LLBT<T>::inOrderT(LLBTN<T>*p,LLBTN<T>*&pre){
 template<class T>
 void LLBT<T>::preOrderT(LLBTN<T>*p,LLBTN<T>*&pre){    // 第六单元 上机第十二  题
 	if(p!=NULL){
-		
 		if(p->leftChild==NULL){
 			p->leftChild=pre;
 			p->leftt=1;
