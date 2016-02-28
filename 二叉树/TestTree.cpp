@@ -67,11 +67,10 @@ int main(){
 	cout<<endl;
 	c.postOrder(c.getRoot());
 	cout<<endl;
-	c.preOrder(c.getRoot());
-	
-	c.findNPpre(20);   //测试  // 第六单元 上机第十二  题
-	//c.findNPPost(20);   //测试  // 第六单元 上机第十三  题     注意两题不能同时测试
-	cout<<endl; 
+	cout<<endl;
+	cout<<"第六单元 上机第十二  题"<<endl;
+	//c.findNPpre(10);//测试  // 第六单元 上机第十二  题
+	c.findNPPost(30);   //测试  // 第六单元 上机第十三  题     注意两题不能同时测试
 
 return 0;
 }

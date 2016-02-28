@@ -24,12 +24,13 @@ public:
 	void findNPIn(T p);    //
 	void findNPpre(T p);    //第六单元 上机第十二  题
 	void findNPPost(T p);   // 第六单元 上机第十三  题
-	
+	LLBTN<T>* find1(LLBTN<T>*p,T &e);
 private:
 	LLBTN<T>* find(LLBTN<T>*p,T &e);
 	void inOrderT(LLBTN<T>*p,LLBTN<T>*&pre=NULL);
 	void preOrderT(LLBTN<T>*p,LLBTN<T>*&pre=NULL);
 	void postOrderT(LLBTN<T>*p,LLBTN<T>*&pre=NULL);
+	
 	
 };
 #endif
@@ -43,21 +44,14 @@ void LLBT<T>::findNPIn(T p){
 	else cout<<"can't found !"<<endl;
 }
 // =================================================
-template<class T>
-void LLBT<T>::findNPpre(T p){     // 第六单元 上机第十二  题
-	LLBTN<T>*t=NULL;
-	preOrderT(root,t);
-	LLBTN<T>*temp=find(root,p);
-	if(temp->rightt=1)cout<<temp->rightChild->date<<endl;
-	else cout<<"can't found !"<<endl;
-}
+
 
 
 template<class T>
 void LLBT<T>::findNPPost(T p){         // 第六单元 上机第十三  题
 	LLBTN<T>*t=NULL;
 	postOrderT(root,t);
-	LLBTN<T>*temp=find(root,p);
+	LLBTN<T>*temp=find1(root,p);
 	if(temp->rightt=1)cout<<temp->rightChild->date<<endl;
 	else cout<<"can't found !"<<endl;
 }
@@ -101,6 +95,26 @@ void LLBT<T>::preOrderT(LLBTN<T>*p,LLBTN<T>*&pre){    // 第六单元 上机第�
 		 if(p->leftt==0)preOrderT(p->leftChild,pre);
 	     if(p->rightt==0) preOrderT(p->rightChild,pre);
 	}
+}
+
+template<class T>
+LLBTN<T>* LLBT<T>::find1(LLBTN<T>*p,T &e){
+	if(p==NULL||p->date==e)return p;
+	else if((p->leftChild==NULL||p->leftt==1)&&p->rightt==1||p->rightChild==NULL)return NULL;
+	LLBTN<T>*temp=find1(p->leftChild,e);
+	if(temp!=NULL)return temp;
+	else return find1(p->rightChild,e);
+}
+
+
+template<class T>
+void LLBT<T>::findNPpre(T p){     // 第六单元 上机第十二  题
+	LLBTN<T>*t=NULL;
+	preOrderT(root,t);
+	LLBTN<T>*temp=find1(root,p);
+	cout<<endl;
+	if(temp&&temp->rightt==1&&temp->rightChild)cout<<temp->rightChild->date<<endl;
+	else cout<<"can't found !"<<endl;
 }
 
 template<class T>
