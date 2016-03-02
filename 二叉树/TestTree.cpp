@@ -24,11 +24,11 @@ int main(){
 	a.postOrder(a.getRoot());
 	cout<<endl;
 
-	LBT<int>b;
+	LBT<int>b,e;
 	b.buildRoot(10);
 	b.addLeft(10,5);
 	b.addRight(10,6);
-	//b.addRight(6, 100);
+	b.addRight(6, 100);
 	b.addLeft(5,1);
 	//b.addRight(5, 113);
 	b.addLeft(1,9);
@@ -50,6 +50,19 @@ int main(){
 	cout<<"第六单元 14 题"<<endl;
 	cout<<b.numberNode(b.getRoot())<<endl;   //第六单元 14 题
 
+	e.buildRoot(10);
+	e.addLeft(10,5);
+	e.addRight(10,6);
+	//b.addRight(6, 100);
+	e.addLeft(5,1);
+	//b.addRight(5, 113);
+	e.addLeft(1,9);
+	e.addRight(1,3);
+	e.addLeft(9,20);
+	e.addRight(9, 34);
+	e.addLeft(6,18);
+	cout<<"测试两棵树是否相似"<<endl;
+	cout<<similar(b.getRoot(),e.getRoot())<<endl;
 
 	LLBT<int>c;
 	c.buildRoot(10);

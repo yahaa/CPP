@@ -34,14 +34,21 @@ public:
 	//第六章上机第9 题
 	void breadth(LbinTreeNode<T>*t,int i); 
 	int getBreadth();  
-	//链式二叉树的友员
+	friend bool similar(LbinTreeNode<T>*a,LbinTreeNode<T>*b);
 
 	int numberNode(LbinTreeNode<T>*r);
 private:
 	LbinTreeNode<T>* find(LbinTreeNode<T>*p,T &e);
 	
+	
 };
 #endif
+
+template <class T>
+bool similar(LbinTreeNode<T>*a,LbinTreeNode<T>*b){
+	if(a==NULL||b==NULL)return (a==NULL&&b==NULL);
+	return similar(a->leftChild,b->leftChild)&&similar(a->rightChild,b->rightChild);
+}
 
 
 template<class T>      //第六章上机第9 题
