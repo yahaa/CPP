@@ -16,7 +16,7 @@ int main(){
 	char ch[11];
 	while (cin >> ch){
 		int len = strlen(ch);;
-		for (int i = 1; i < len; i++){                         //检测输入的字符串是否是按顺序给的    
+		for (int i = 1; i < len; i++){                         //检测输入的字符串是否是按顺序给的    Codecs33
 			if (ch[i - 1] >= ch[i]){
 				cout << 0 << endl;
 				return 0;
