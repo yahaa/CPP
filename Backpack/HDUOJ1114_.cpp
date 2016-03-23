@@ -24,7 +24,7 @@ int main(){
 		for(int i=1;i<=n;i++){       //动态规划公式   f[i][j]=max(f[i-1][j],f[i-1][j-vi]+wi)
 			cin>>value>>weight;         //其中   f[i-1][j] 表示  第 i 件物品 没有出现在背包中时f[i][j] 的最优解
 			for(int j=0;j<=total;j++){   // 最关键的还是   [i-1] 表示 i  没有放入背包中    [i]  表示背包中  最少一个 i
-				if(j>=weight)f[i][j]=min(f[i-1][j],f[i][j-weight]+value);   
+				if(j>=weight)f[i][j]=min(f[i-1][j],f[i-1][j-weight]+value);   
 				else f[i][j]=f[i-1][j];
 			}
 		}
