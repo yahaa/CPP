@@ -34,6 +34,8 @@ void solve(){
 	}
 	cout<<ans<<endl;
 }
+
+
 int main(){
 	while(cin>>n){
 		for(int i=0;i<n;i++){
@@ -44,12 +46,8 @@ int main(){
 		cin>>l>>p;
 		for(int i=0;i<n;i++)sta[i].dis=l-sta[i].dis;
 		sta[n].dis=l;
-		sta[n].fule=0;
-		n++;
+		sta[n++].fule=0;
 		sort(sta,sta+n,cmp);
-		for(int i=0;i<n;i++){
-			cout<<sta[i].dis<<"  "<<sta[i].fule<<endl;
-		}
 		solve();
 	}
 	return 0;
