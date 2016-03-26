@@ -5,12 +5,9 @@ using namespace std;
 int a[10];
 bool ans;
 void dfs(int i,int r,int l){
-	if(i==10){
-		ans=1;
-		return;
-	}
-	if(a[i]<r&&a[i]<l)return;
+	if(i==10)ans=1;
 	if(ans)return;
+	if(a[i]<r&&a[i]<l)return;
 	if(r<a[i])dfs(i+1,a[i],l);
 	if(l<a[i])dfs(i+1,r,a[i]);
 
