@@ -6,16 +6,12 @@ int a[21];
 int n,k;
 int ans;
 
-
 int isprime(int s){
 	int nn=(int)sqrt(s);
 	for(int i=2;i<=nn;i++){
 		if(s%i==0)return 0;
 	}
 	return 1;
-}
-void init(){
-	ans=0;
 }
 
 void dfs(int sum,int i,int cur){
@@ -29,11 +25,10 @@ void dfs(int sum,int i,int cur){
 }
 int main(){
 	while(cin>>n>>k){
-		init();
+		ans=0;
 		for(int i=0;i<n;i++)cin>>a[i];
 		dfs(0,-1,0);
 		cout<<ans<<endl;
 	}
 	return 0;
-
 }
