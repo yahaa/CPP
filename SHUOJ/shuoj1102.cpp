@@ -13,6 +13,21 @@ void init(){
 	ans[0]=1;
 }
 
+void floyd(){
+	for(int k=0;k<10;k++)
+		for(int i=0;i<10;i++)
+			for(int j=0;j<10;j++){
+				if(G[i][k]&&G[k][j])G[i][j]=1;
+			}
+}
+
+void getCount(){
+	for(int i=0;i<10;i++)
+		for(int j=0;j<10;j++){
+			if(G[i][j])counts[i]++;
+		}
+}
+
 void getAns(string s){
 	int len=1;
 	for(int i=0;i<s.length();i++){
@@ -41,15 +56,8 @@ int main(){
 			cin>>a>>b;
 			G[a][b]=1;
 		}
-		for(int k=0;k<10;k++)
-		for(int i=0;i<10;i++)
-			for(int j=0;j<10;j++){
-				if(G[i][k]&&G[k][j])G[i][j]=1;
-			}
-		for(int i=0;i<10;i++)
-		for(int j=0;j<10;j++){
-			if(G[i][j])counts[i]++;
-		}
+		floyd();
+		getCount();
 		getAns(s);
 	}
 	return 0;
