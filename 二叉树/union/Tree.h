@@ -8,18 +8,17 @@
 template<class T>
 class Tree{
 private:
-	int maxn;
+	int maxD;
 	TreeNode<T>*root;
 	TreeNode<T>* find(TreeNode<T>*r,T p);
 	void solve(TreeNode<T>*r);
 	
 public:
 	Tree(T p);
-	void addSon(T p,T son);
-	void addBro(T p,T bro);
+	void addSB(T p,T adds,int select);
 	void show(TreeNode<T>*r);
 	TreeNode<T>*getRoot();
-	int maxWeith();
+	int maxDegree();
 };
 #endif
 
@@ -32,41 +31,34 @@ void Tree<T>::solve(TreeNode<T>*r){
 		t++;
 		p=p->bro;
 	}
-	if(maxn<t)maxn=t;
+	if(maxD<t)maxD=t;
 	solve(r->son);
 	solve(r->bro);
 }
 
 template<class T>
-int Tree<T>::maxWeith(){
+int Tree<T>::maxDegree(){
 	solve(root);
-	return maxn;
+	return maxD;
 	
 }
 
 template<class T>
 Tree<T>::Tree(T p){
 	root=new TreeNode<T>(p);
-	maxn=-100;
+	maxD=0;
 }
 
 template<class T>
-void Tree<T>::addSon(T p,T son){
+void Tree<T>::addSB(T p,T adds,int select){
 	TreeNode<T>*np=find(root,p);
 	if(np){
-		np->son=new TreeNode<T>(son);
+		if(select==1)np->son=new TreeNode<T>(adds);
+		else if(select==0)np->bro=new TreeNode<T>(adds);
 	}
 	else std::cout<<p<<"  NOT IN THIS TERR !"<<std::endl;
 }
 
-template<class T>
-void Tree<T>::addBro(T p,T bro){
-	TreeNode<T>*np=find(root,p);
-	if(np){
-		np->bro=new TreeNode<T>(bro);
-	}
-	else std::cout<<p<<"  NOT IN THIS TERR !"<<std::endl;
-}
 
 template<class T>
 TreeNode<T>*Tree<T>::getRoot(){
