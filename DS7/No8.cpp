@@ -33,6 +33,7 @@ void init(){
 }
 
 void AOE(){
+	//queue<int>que;
 	priority_queue<int,vector<int>,greater<int> >que;//正向拓扑
 	stack<int>sta;//逆向拓扑
 	for(int i=0;i<n;i++){
@@ -73,26 +74,32 @@ void AOE(){
 		for(int i=0;i<G[s].size();i++){
 			ee[k]=ve[s];
 			el[k]=vl[G[s][i].e]-G[s][i].w;
-			if(ee[k]==el[k])important.push_back(k++);
+			if(ee[k]==el[k])important.push_back(k);
+			k++;
 		}
 	}
 
-}
-
-
-void print(){
 	for(int i=0;i<n;i++)cout<<ve[i]<<" ";
 	cout<<endl;
 	for(int i=0;i<n;i++)cout<<vl[i]<<" ";
 	cout<<endl;
+	for(int i=1;i<=m;i++)cout<<ee[i]<<" ";
+	cout<<endl;
+	for(int i=1;i<=m;i++)cout<<el[i]<<" ";
+	cout<<endl;
+	for(int i=0;i<important.size();i++)cout<<important[i]<<" ";
+	cout<<endl;
+
 }
+
 
 int main(){
 	int a,b,w;
 	int i;
 	while(cin>>n>>m){
 		init();
-		while(m--){
+		int tm=m;
+		while(tm--){
 			cin>>a>>b>>w;
 			for(i=0;i<G[a].size();i++)if(G[a][i].e==b)break;
 			if(i==G[a].size()){//建立邻接表
@@ -114,6 +121,32 @@ int main(){
 			else GT[b][a].w=max(GT[b][a].w,w);
 		}
 		AOE();
-		print();
 	}
+	return 0;
 }
+/*
+7 10
+0 1 3
+0 2 2
+0 3 6
+1 4 4
+1 3 2
+2 3 1
+2 5 3
+3 4 1
+4 6 3
+5 6 4
+
+7 11
+0 1 8
+0 3 4
+0 4 5
+3 4 1
+4 1 2
+4 2 7
+4 5 2
+1 2 3
+2 6 6
+5 6 9
+5 2 3
+*/
