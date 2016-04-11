@@ -121,7 +121,6 @@ int main(){
 				break;
 			}
 		}
-
 		if(ans){
 			for(int i=0;i<n;i++){
 				if(i==n-1)cout<<a[i]<<endl;
@@ -129,8 +128,6 @@ int main(){
 			}
 		}
 		else cout<<"Impossible"<<endl;
-
 	}
 	return 0;
-
 }
