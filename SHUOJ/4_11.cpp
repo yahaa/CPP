@@ -77,7 +77,6 @@ void dfs(int v){
 	}
 }
 int main(){
-	
 	string s;
 	int t=1;
 	while(cin>>n&&n){
