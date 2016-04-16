@@ -22,8 +22,8 @@ void init(){
 
 bool bellman_ford(){
 	int nn=maps.size();
-	for(int i=0;i<nn;i++)
-		for(int j=0;j<nn;j++)dis[maps[j].e]=min(dis[maps[j].e],dis[maps[j].s]+maps[j].lengths);
+	for(int i=1;i<n;i++)//外层循环表示顶点数   需要执行  n-1次即可
+		for(int j=0;j<nn;j++)dis[maps[j].e]=min(dis[maps[j].e],dis[maps[j].s]+maps[j].lengths);//内层表示边数
 	return true;
 }
 
