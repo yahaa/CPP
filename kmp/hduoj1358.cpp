@@ -23,17 +23,9 @@ int getnumber(string s){
 	return count;
 }
 int main(){
-	int n;
-	string s;
-	int t=1;
-	while(cin>>n&&n){
-		cin>>s;
-		cout<<"Test case #"<<t++<<endl;
-		for(int i=1;i<s.length();i++){
-			string ts=s.substr(0,i+1);
-			int p=getnumber(ts);
-			if(p>1)cout<<i+1<<" "<<p<<endl;
-		}
+	string s1,s2;
+	while(cin>>s1>>s2){
+		
 	}
 	return 0;
 }

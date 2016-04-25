@@ -36,9 +36,6 @@ int KMP(){
 }
 
 int main(){
-	int t;
-	cin>>t;
-	while(t--){
 		cin>>n>>m;
 		for(int i=0;i<n;i++){
 			cin>>ob[i];
@@ -49,6 +46,5 @@ int main(){
 		int ans=KMP();
 		if(ans==-1)cout<<ans<<endl;
 		else cout<<ans+1<<endl;
-	}
 	return 0;
 }

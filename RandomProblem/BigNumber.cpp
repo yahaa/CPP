@@ -1,258 +1,443 @@
-#include<iostream>
-#include<string>
-#include<cstring>
-#include<cstdio>
+#include <deque>
+#include <vector>
+#include <iostream>
+#include <string>
+#include <algorithm>
 using namespace std;
-const int MAXN = 1000;
 
-class BigNumber{
-public:
-	int len, s[MAXN];
-public:
-	void cleanLeadZero();
-	void multiplyTen(int n);
-	void divisionTen(int n);
-	string str() const;
-	BigNumber();
-	BigNumber(int n);
-	BigNumber(const char *);
-	~BigNumber();
-	BigNumber getSub(int n)const;
-	BigNumber operator=(const char *);
-	BigNumber operator=(int num);
-	BigNumber operator + (const BigNumber &) const;
-	BigNumber operator - (const BigNumber &) const;
-	BigNumber operator * (const BigNumber &) const;
-	BigNumber operator / (const BigNumber &) const;
-	BigNumber operator % (const BigNumber &) const;
-	BigNumber operator -= (const BigNumber &);
-	BigNumber operator += (const BigNumber &);
-	BigNumber operator *= (const BigNumber &);
-	BigNumber operator /= (const BigNumber &);
-	// 重载比较运算符      
-	bool operator < (const BigNumber &) const;
-	bool operator > (const BigNumber &) const;
-	bool operator <= (const BigNumber &) const;
-	bool operator >= (const BigNumber &) const;
-	bool operator == (const BigNumber &) const;
+class DividedByZeroException {};
 
-	friend istream & operator >> (istream &, BigNumber &);
-	friend ostream &operator << (ostream &, BigNumber &);
+class BigInteger
+{
+    private:
+        vector<char> digits; 
+        bool sign;          //  true for positive, false for negitive
+        void trim();        //  remove zeros in tail, but if the value is 0, keep only one:)
+    public:
+        BigInteger(int);    // construct with a int integer
+        BigInteger(string&) ;
+        BigInteger();
+        BigInteger (const BigInteger&);
+        BigInteger operator=(const BigInteger& op2);
+
+        BigInteger      abs() const;
+        BigInteger    pow(int a);
+
+        //binary operators
+        
+        friend BigInteger operator+=(BigInteger&,const BigInteger&);
+        friend BigInteger operator-=(BigInteger&,const BigInteger&);
+        friend BigInteger operator*=(BigInteger&,const BigInteger&);
+        friend BigInteger operator/=(BigInteger&,const BigInteger&) throw(DividedByZeroException);
+        friend BigInteger operator%=(BigInteger&,const BigInteger&) throw(DividedByZeroException);       
+
+        friend BigInteger operator+(const BigInteger&,const BigInteger&);
+        friend BigInteger operator-(const BigInteger&,const BigInteger&);
+        friend BigInteger operator*(const BigInteger&,const BigInteger&);
+        friend BigInteger operator/(const BigInteger&,const BigInteger&) throw(DividedByZeroException);
+        friend BigInteger operator%(const BigInteger&,const BigInteger&) throw(DividedByZeroException);
+   
+
+        //uniary operators
+        friend BigInteger operator-(const BigInteger&);   //negative
+
+        friend BigInteger operator++(BigInteger&);        //++v
+        friend BigInteger operator++(BigInteger&,int);    //v++
+        friend BigInteger operator--(BigInteger&);        //--v
+        friend BigInteger operator--(BigInteger&,int);    //v--
+
+        friend bool operator>(const BigInteger&,const BigInteger&);
+        friend bool operator<(const BigInteger&,const BigInteger&);
+        friend bool operator==(const BigInteger&,const BigInteger&);
+        friend bool operator!=(const BigInteger&,const BigInteger&);
+        friend bool operator>=(const BigInteger&,const BigInteger&);
+        friend bool operator<=(const BigInteger&,const BigInteger&);
+
+        friend ostream& operator<<(ostream&,const BigInteger&);    //print the BigInteger
+        friend istream& operator>>(istream&, BigInteger&);         // input the BigInteger
+
+public:
+        static const BigInteger ZERO;
+        static const BigInteger ONE;
+        static const BigInteger TEN;
 };
 
 
-//清楚前导0
-void BigNumber::cleanLeadZero(){
-	while (len>1 && !s[len - 1])len--;
-}
 
-BigNumber::~BigNumber(){
-	this->len = 0;
-}
-//
-void BigNumber::divisionTen(int n){
-	int i;
-	if (n>len){
-		while (len >= 1)s[len--] = 0;
-	}
-	else{
-		for (i = 0; i<len - n; i++)s[i] = s[i + n];
-		len -= n;
-	}
+const BigInteger BigInteger::ZERO=BigInteger(0);
+ const BigInteger BigInteger::ONE =BigInteger(1);
+ const BigInteger BigInteger::TEN =BigInteger(10);
+
+
+BigInteger::BigInteger()
+{
+    sign=true; 
 }
 
 
-void BigNumber::multiplyTen(int n){
-	if (n>0){
-		int i;
-		for (i = len - 1; i >= 0; i--)s[i + n] = s[i];
-		for (i = 0; i<n; i++)s[i] = 0;
-		len += n;
-	}
+BigInteger::BigInteger(int val){// construct with a int integer
+    if (val >= 0)
+        sign = true;
+    else{
+        sign = false;
+        val *= (-1);
+    }
+    do{
+        digits.push_back( (char)(val%10) );
+        val /= 10;
+    } while ( val != 0 );
 }
 
 
-
-string BigNumber::str()const{
-	string res = "";
-	for (int i = 0; i<len; i++){
-		res = (char)(s[i] + '0') + res;
-	}
-	if (res == "")res = "0";
-	return res;
+BigInteger::BigInteger(string& def){
+    sign=true;
+    for ( string::reverse_iterator iter = def.rbegin() ; iter < def.rend();  iter++){
+        char ch = (*iter);
+        if (iter == def.rend()-1){
+            if ( ch == '+' )
+                break;
+            if(ch == '-' ){
+                sign = false;
+                break;
+            }
+        }
+        digits.push_back( (char)((*iter) - '0' ) );
+    }
+    trim();
 }
 
-BigNumber::BigNumber(){
-	memset(s, 0, sizeof(s));
-	len = 1;
-}
-
-BigNumber::BigNumber(int num){
-	*this = num;
-}
-
-BigNumber::BigNumber(const char*num){
-	*this = num;
-}
-
-BigNumber BigNumber::getSub(int n)const{
-	BigNumber c;
-	c.len = 0;
-	for (int i = 0; i<n; i++)c.s[c.len++] = s[len - n + i];
-	return c;
-}
-
-BigNumber BigNumber::operator =(const char *num){
-	len = strlen(num);
-	for (int i = 0; i<len; i++)s[i] = num[len - i - 1] - '0';
-	return *this;
-}
-
-BigNumber BigNumber::operator=(int num){
-	char s[MAXN];
-	sprintf(s, "%d", num);
-	*this = s;
-	return *this;
-}
-
-BigNumber BigNumber::operator+(const BigNumber & x)const{
-	BigNumber r;
-	r.len = 0;
-	int i, up;
-	int maxlen = max(len, x.len);
-	for (i = 0, up = 0; up || i<maxlen; i++){
-		int temp = up;
-		if (i<len)temp += s[i];
-		if (i<x.len)temp += x.s[i];
-		up = temp / 10;
-		r.s[r.len++] = temp % 10;
-	}
-	r.cleanLeadZero();
-	return r;
-}
-
-BigNumber BigNumber::operator -(const BigNumber & b)const{
-	BigNumber c;
-	c.len = 0;
-	int down;
-	for (int i = 0, down = 0; i<len; i++){
-		int temp = s[i] - down;
-		if (i<b.len)temp -= b.s[i];
-		if (temp >= 0)down = 0;
-		else{
-			down = 1;
-			temp += 10;
-		}
-		c.s[c.len++] = temp;
-	}
-	c.cleanLeadZero();
-	return c;
-}
-
-BigNumber BigNumber::operator*(const BigNumber & b)const{
-	int i, j;
-	BigNumber c;
-	c.len = len + b.len;
-	for (i = 0; i<len; i++){
-		for (j = 0; j<b.len; j++)
-			c.s[i + j] += s[i] * b.s[j];
-	}
-	for (i = 0; i<c.len; i++){
-		c.s[i + 1] += c.s[i] / 10;
-		c.s[i] %= 10;
-	}
-	c.cleanLeadZero();
-	return c;
+void BigInteger::trim(){
+    vector<char>::reverse_iterator iter = digits.rbegin();
+    while(!digits.empty() && (*iter) == 0){
+        digits.pop_back();
+        iter=digits.rbegin();
+    }
+    if( digits.size()==0 ){
+        sign = true;
+        digits.push_back(0);
+    }
 }
 
 
-BigNumber BigNumber::operator/(const BigNumber &b)const{
-	int i, j;
-	BigNumber r;
-	r.len = 0;
-	BigNumber temp = this->getSub(b.len - 1);
-	for (i = len - b.len; i >= 0; i--){
-		temp = temp * 10 + s[i];
-		if (temp<b)r.s[r.len++] = 0;
-		else{
-			for (j = 1; j <= 10; j++){
-				if (b*j>temp)break;
-			}
-			r.s[r.len++] = j - 1;
-			temp = temp - (b*(j - 1));
-		}
-	}
-	for (i = 0; i<r.len / 2; i++){
-		int temp = r.s[i];
-		r.s[i] = r.s[r.len - i - 1];
-		r.s[r.len - 1 - i] = temp;
-	}
-	r.cleanLeadZero();
-	return r;
+BigInteger::BigInteger(const BigInteger& op2){
+    sign = op2.sign;
+    digits=op2.digits;
 }
 
 
-BigNumber BigNumber::operator%(const BigNumber &b)const{
-	BigNumber r;
-	r = *this / b;
-	r = *this - r*b;
-	return r;
+BigInteger BigInteger::operator=(const BigInteger& op2){
+            digits = op2.digits;
+            sign = op2.sign;
+            return (*this);
+ }
+
+
+BigInteger BigInteger::abs() const {
+    if(sign)  return *this;
+    else      return -(*this);
 }
 
-BigNumber BigNumber::operator+=(const BigNumber &b){
-	*this = *this + b;
-	return *this;
+BigInteger BigInteger::pow(int a) 
+{
+    BigInteger res(1);
+    for(int i=0; i<a; i++)
+        res*=(*this);
+    return res;
+}
+
+//binary operators
+BigInteger operator+=(BigInteger& op1,const BigInteger& op2){
+    if( op1.sign == op2.sign ){     //只处理相同的符号的情况，异号的情况给-处理
+        vector<char>::iterator iter1;
+        vector<char>::const_iterator iter2;
+        iter1 = op1.digits.begin();
+        iter2 = op2.digits.begin();
+        char to_add = 0;        //进位
+        while ( iter1 != op1.digits.end() && iter2 != op2.digits.end()){
+            (*iter1) = (*iter1) + (*iter2) + to_add;
+            to_add = ((*iter1) > 9);    // 大于9进一位
+            (*iter1) = (*iter1) % 10;
+            iter1++; iter2++;
+        }
+        while ( iter1 != op1.digits.end() ){   // 
+            (*iter1) = (*iter1) + to_add;
+            to_add = ( (*iter1) > 9 );
+            (*iter1) %= 10;
+            iter1++;
+        }
+        while ( iter2 != op2.digits.end() ){
+            char val = (*iter2) + to_add;
+            to_add = (val > 9) ;
+            val %= 10;
+            op1.digits.push_back(val);
+            iter2++;
+        }
+        if( to_add != 0 )
+            op1.digits.push_back(to_add);
+        return op1;
+    }
+    else{
+        if (op1.sign)
+            return op1 -= (-op2);
+        else
+            return op1= op2 - (-op1);
+    }
+
+}
+
+BigInteger operator-=(BigInteger& op1,const BigInteger& op2){
+    if( op1.sign == op2.sign ){     //只处理相同的符号的情况，异号的情况给+处理
+        if(op1.sign) { 
+            if(op1 < op2)  // 2 - 3
+                return  op1=-(op2 - op1);
+        } 
+        else {
+            if(-op1 > -op2)  // (-3)-(-2) = -(3 - 2)
+                return op1=-((-op1)-(-op2));
+            else             // (-2)-(-3) = 3 - 2 
+                return op1= (-op2) - (-op1);
+        }
+        vector<char>::iterator iter1;
+        vector<char>::const_iterator iter2;
+        iter1 = op1.digits.begin();
+        iter2 = op2.digits.begin();
+
+        char to_substract = 0;  //借位
+
+        while ( iter1 != op1.digits.end() && iter2 != op2.digits.end()){
+            (*iter1) = (*iter1) - (*iter2) - to_substract;
+            to_substract = 0;
+            if( (*iter1) < 0 ){
+                to_substract=1;
+                (*iter1) += 10;
+            }
+            iter1++;
+            iter2++;
+        }
+        while ( iter1 != op1.digits.end() ){
+            (*iter1) = (*iter1) - to_substract;
+            to_substract = 0;
+            if( (*iter1) < 0 ){
+                to_substract=1;
+                (*iter1) += 10;
+            }
+            else break;
+            iter1++;
+        }
+        op1.trim();
+        return op1;
+    }
+    else{
+        if (op1 > BigInteger::ZERO)
+            return op1 += (-op2);
+        else
+            return op1 = -(op2 + (-op1));
+    }
+}
+BigInteger operator*=(BigInteger& op1,const BigInteger& op2){
+    BigInteger result(0);
+    if (op1 == BigInteger::ZERO || op2==BigInteger::ZERO)
+        result = BigInteger::ZERO;
+    else{
+        vector<char>::const_iterator iter2 = op2.digits.begin();
+        while( iter2 != op2.digits.end() ){
+            if(*iter2 != 0){
+                deque<char> temp(op1.digits.begin() , op1.digits.end());
+                char to_add = 0;
+                deque<char>::iterator iter1 = temp.begin();
+                while( iter1 != temp.end() ){
+                    (*iter1) *= (*iter2);
+                    (*iter1) += to_add;
+                    to_add = (*iter1) / 10;
+                    (*iter1) %= 10;
+                    iter1++;
+                }
+                if( to_add != 0)
+                    temp.push_back( to_add );
+                int num_of_zeros = iter2 - op2.digits.begin();
+                while(  num_of_zeros--)
+                    temp.push_front(0);
+                BigInteger temp2;
+                temp2.digits.insert( temp2.digits.end() , temp.begin() , temp.end() );
+                temp2.trim();
+                result = result + temp2;
+            }
+            iter2++;
+        }
+        result.sign = ( (op1.sign && op2.sign) || (!op1.sign && !op2.sign) );
+    }
+    op1 = result;
+    return op1;
+}
+
+BigInteger operator/=(BigInteger& op1 , const BigInteger& op2 ) throw(DividedByZeroException) {
+    if( op2 == BigInteger::ZERO )
+        throw DividedByZeroException();
+    BigInteger t1 = op1.abs(), t2 = op2.abs();
+    if ( t1 < t2 ){
+        op1 = BigInteger::ZERO;
+        return op1;
+    }
+    //现在 t1 > t2 > 0
+    //只需将 t1/t2的结果交给result就可以了
+    deque<char> temp;
+    vector<char>::reverse_iterator iter = t1.digits.rbegin();
+
+    BigInteger temp2(0);
+    while( iter != t1.digits.rend() ){
+        temp2 = temp2 * BigInteger::TEN + BigInteger( (int)(*iter) );
+        char s = 0;
+        while( temp2 >= t2 ){
+            temp2 = temp2 - t2;
+            s = s + 1;
+        }
+        temp.push_front( s );
+        iter++;
+    }
+    op1.digits.clear();
+    op1.digits.insert( op1.digits.end() , temp.begin() , temp.end() );
+    op1.trim();
+    op1.sign = ( (op1.sign && op2.sign) || (!op1.sign && !op2.sign) );
+    return op1;
+}
+
+BigInteger operator%=(BigInteger& op1,const BigInteger& op2) throw(DividedByZeroException) {
+    return op1 -= ((op1 / op2)*op2);
+}
+
+BigInteger operator+(const BigInteger& op1,const BigInteger& op2){
+    BigInteger temp(op1);
+    temp += op2;
+    return temp;
+}
+BigInteger operator-(const BigInteger& op1,const BigInteger& op2){
+    BigInteger temp(op1);
+    temp -= op2;
+    return temp;
+}
+
+BigInteger operator*(const BigInteger& op1,const BigInteger& op2){
+    BigInteger temp(op1);
+    temp *= op2;
+    return temp;
+
+}
+
+BigInteger operator/(const BigInteger& op1,const BigInteger& op2) throw(DividedByZeroException) {
+    BigInteger temp(op1);
+    temp /= op2;
+    return temp;
+}
+
+BigInteger operator%(const BigInteger& op1,const BigInteger& op2) throw(DividedByZeroException) {
+    BigInteger temp(op1);
+    temp %= op2;
+    return temp;
+}
+
+//uniary operators
+BigInteger operator-(const BigInteger& op){   //negative
+    BigInteger temp = BigInteger(op);
+    temp.sign = !temp.sign;
+    return temp;
+}
+
+BigInteger operator++(BigInteger& op){    //++v
+    op += BigInteger::ONE;
+    return op;
+}
+
+BigInteger operator++(BigInteger& op,int x){  //v++
+    BigInteger temp(op);
+    ++op;
+    return temp;
+}
+
+BigInteger operator--(BigInteger& op){    //--v
+    op -=  BigInteger::ONE;
+    return op;
+}
+
+BigInteger operator--(BigInteger& op,int x){  //v--
+    BigInteger temp(op);
+    --op;
+    return temp;
+}
+
+bool operator<(const BigInteger& op1,const BigInteger& op2){
+    if( op1.sign != op2.sign )
+        return !op1.sign;
+    else{
+        if(op1.digits.size() != op2.digits.size())
+            return (op1.sign && op1.digits.size()<op2.digits.size())
+                       || (!op1.sign && op1.digits.size()>op2.digits.size());
+        vector<char>::const_reverse_iterator iter1,iter2;
+        iter1 = op1.digits.rbegin();iter2 = op2.digits.rbegin();
+        while( iter1 != op1.digits.rend() ){
+            if(  op1.sign &&  *iter1 < *iter2 ) return true;
+            if(  op1.sign &&  *iter1 > *iter2 ) return false;
+            if( !op1.sign &&  *iter1 > *iter2 ) return true;
+            if( !op1.sign &&  *iter1 < *iter2 ) return false;
+            iter1++;
+            iter2++;
+        }
+        return false;
+    }
+}
+bool operator==(const BigInteger& op1,const BigInteger& op2){
+    if( op1.sign != op2.sign  || op1.digits.size() != op2.digits.size() )
+        return false;
+    vector<char>::const_iterator iter1,iter2;
+    iter1 = op1.digits.begin();
+    iter2 = op2.digits.begin();
+    while( iter1!= op1.digits.end() ){
+        if( *iter1 != *iter2 )  return false;
+        iter1++;
+        iter2++;
+    }
+    return true;
+}
+
+bool operator!=(const BigInteger& op1,const BigInteger& op2){
+    return !(op1==op2);
+}
+
+bool operator>=(const BigInteger& op1,const BigInteger& op2){
+    return (op1>op2) || (op1==op2);
+}
+
+bool operator<=(const BigInteger& op1,const BigInteger& op2){
+    return (op1<op2) || (op1==op2);
+}
+
+bool operator>(const BigInteger& op1,const BigInteger& op2){
+    return !(op1<=op2);
+}
+
+ostream& operator<<(ostream& stream,const BigInteger& val){    //print the BigInteger
+    if (!val.sign)
+        stream << "-";
+    for ( vector<char>::const_reverse_iterator iter = val.digits.rbegin(); iter != val.digits.rend() ; iter++)
+        stream << (char)((*iter) + '0');
+    return stream;
+}
+
+istream& operator>>(istream& stream, BigInteger& val){    //Input the BigInteger
+    string str;
+    stream >> str;
+    val=BigInteger(str);
+    return stream;
 }
 
 
-BigNumber BigNumber::operator -= (const BigNumber & b){
-	*this = *this - b;
-	return *this;
-}
-BigNumber BigNumber::operator *= (const BigNumber & b){
-	*this = *this * b;
-	return *this;
-}
-
-BigNumber BigNumber::operator /= (const BigNumber & b){
-	*this = *this / b;
-	return *this;
-}
-
-bool BigNumber::operator<(const BigNumber &b) const{
-	if (len != b.len)return len<b.len;
-	else{
-		for (int i = len - 1; i>-0; i--)
-		if (s[i] != b.s[i])return s[i]<b.s[i];
-	}
-	return false;
-}
-
-
-bool BigNumber::operator > (const BigNumber & b) const{
-	return b < *this;
-}
-
-bool BigNumber::operator <= (const BigNumber & b) const{
-	return !(b > *this);
-}
-
-bool BigNumber::operator >= (const BigNumber & b) const{
-	return !(*this < b);
-}
-
-bool BigNumber::operator == (const BigNumber & b) const{
-	return !(b < *this) && !(b > *this);
-}
-
-istream & operator >>(istream & in, BigNumber & x){
-	string s;
-	in >> s;
-	x = s.c_str();
-	return in;
-}
-
-ostream & operator<<(ostream & out, BigNumber & x){
-	out << x.str();
-	return out;
+int main()
+{
+   int t;
+   cin>>t;
+   BigInteger a,b;
+   while(t--){
+   		cin>>a>>b;
+   		cout<<a*b<<endl;
+   }
+    return 0;
 }
