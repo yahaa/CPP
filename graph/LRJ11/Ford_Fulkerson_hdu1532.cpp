@@ -15,7 +15,7 @@ vector<edge>G[maxv];
 bool used[maxv];
 void add_edge(int from,int to,int cap){
 	G[from].push_back(edge(to,cap,G[to].size()));
-	G[to].push_back(edge(from,0,G[from].size()-1));
+	G[to].push_back(edge(from,0,G[from].size()-1));//这个办法求残余网络图
 }
 
 
@@ -51,40 +51,16 @@ void init(){
 }
 
 int main(){
-	// int m,n;
-	// int from,to,cap;
-	// while(cin>>m>>n){
-	// 	init();
-	// 	while(m--){
-	// 		cin>>from>>to>>cap;
-	// 		add_edge(from,to,cap);
-	// 	}
-	// 	int ans=max_flow(1,n);
-	// 	cout<<ans<<endl;
-	// }
-
-
-	int p,n;
-	int t;
-	cin>>t;
-	while(t--){
+	int m,n;
+	int from,to,cap;
+	while(cin>>m>>n){
 		init();
-		cin>>p>>n;
-		int s=n+p+2,t=s+1;
-		for(int i=1;i<=n;i++)add_edge(s,i,1);
-		for(int i=1;i<=p;i++)add_edge(n+i,t,1);
-		for(int i=1;i<=p;i++){
-			int count,t;
-			cin>>count;
-			while(count--){
-				cin>>t;
-				add_edge(t,n+i,1);
-			}
+		while(m--){
+			cin>>from>>to>>cap;
+			add_edge(from,to,cap);
 		}
-		int ans=max_flow(s,t);
-		//cout<<ans<<endl;
-		if(ans==p)cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int ans=max_flow(1,n);
+		cout<<ans<<endl;
 	}
 	return 0;
 }
