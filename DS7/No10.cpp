@@ -71,7 +71,7 @@ int POQUAN(){
 			quv.pop();
 			int u;
 			for(int i=0;i<G[v].size();i++){
-				if(degree[G[v][i].e]!=-1){
+				if(degree[G[v][i].e]>0){
 					u=i;
 					break;
 				}
@@ -147,5 +147,6 @@ int main(){
 1 3 1
 2 4 4
 4 5 3
+5 3 2
 
 */

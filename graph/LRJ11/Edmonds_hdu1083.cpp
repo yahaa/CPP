@@ -5,65 +5,48 @@
 using namespace std;
 const int maxv=405;
 const int INF=0XFFFF;
-int v;
-vector<int> G[maxv];
+int G[maxv][maxv];
 int match[maxv];
 bool used[maxv];
+int p,n;
 
-void add_edge(int u,int v){
-	G[u].push_back(v);
-	G[v].push_back(u);
-}
-
-bool dfs(int v){
-	used[v]=true;
-	for(int i=0;i<G[v].size();i++){
-		int u=G[v][i];
-		int w=match[u];
-		if(w<0||(!used[w]&&dfs(w))){
-			match[v]=u;
-			match[u]=v;
-			return true;
+int dfs(int u){
+	for(int i=1;i<=n;i++){
+		if(G[u][i]&&!used[i]){
+			used[i]=1;
+			if(!match[i]||dfs(match[i])){
+				//match[u]=i;
+				match[i]=u;
+				return 1;
+			}
 		}
 	}
-	return false;
-}
-
-int bipartite_matching(){
-	int res=0;
-	memset(match,-1,sizeof(match));
-	for(int i=1;i<=v;i++){
-		if(match[i]<0){
-			memset(used,0,sizeof(used));
-			if(dfs(v))res++;
-		}
-	}
-	return res;
-}
-
-void init(){
-	for(int i=0;i<maxv;i++)G[i].clear();
+	return 0;
 }
 
 int main(){
 	int t;
 	cin>>t;
-	int p,n;
+	int count,vt;
 	while(t--){
-		init();
+		memset(G,0,sizeof(G));
+		memset(match,0,sizeof(match));
 		cin>>p>>n;
-		v=n+p;
-		int count,s;
 		for(int i=1;i<=p;i++){
 			cin>>count;
 			while(count--){
-				cin>>s;
-				add_edge(i,p+s);
+				cin>>vt;
+				G[i][vt]=1;
+				//G[vt][i]=1;
 			}
 		}
-		int ans=bipartite_matching();
-		cout<<ans<<endl;
+		int ans=0;
+		for(int i=1;i<=p;i++){
+			memset(used,0,sizeof(used));
+			if(dfs(i))ans++;
+		}
 		if(ans==p)cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		else cout<<"NO"<<endl;	
 	}
+	return 0;
 }
