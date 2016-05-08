@@ -10,6 +10,7 @@ struct ew{
 	int e;
 	int w;
 };
+
 vector<ew>G[maxn];
 vector<ew>GT[maxn];
 vector<int>important;

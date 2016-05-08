@@ -1,6 +1,6 @@
 #ifndef LBT_
 #define LBT_
-#include"LBTN.h"
+#include "LBTN.h"
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -35,14 +35,94 @@ public:
 	void breadth(LbinTreeNode<T>*t,int i); 
 	int getBreadth();  
 	friend bool similar(LbinTreeNode<T>*a,LbinTreeNode<T>*b);
-
+	bool isBST();//第八章第七题
+	void BMX(LbinTreeNode<T>*r,T x);
+	LbinTreeNode<T>*&location(int k);
 	int numberNode(LbinTreeNode<T>*r);
 private:
 	LbinTreeNode<T>* find(LbinTreeNode<T>*p,T &e);
-	
+	void inOD(LbinTreeNode<T>*r,bool &is,LbinTreeNode<T> *t);//第八章第七题
+	int addLsize(LbinTreeNode<T>*r);
+	void loca(LbinTreeNode<T>*r,LbinTreeNode<T>*&t,int k);
 	
 };
 #endif
+
+template<class T>
+int LBT<T>::addLsize(LbinTreeNode<T>*r){
+	// if(r==NULL)return 0;
+	// if(r->leftChild==NULL&&r->rightChild==NULL)r->lsize=1;
+	// if(r->lsize)return r->lsize;
+	// addLsize(r->rightChild);
+	// LbinTreeNode<T>*rl=r->leftChild;
+	// while(rl){
+	// 	r->lsize+=addLsize(rl);
+	// 	rl=rl->rightChild;
+	// }
+	// r->lsize++;
+	// return r->lsize;
+	int s=r->lsize=1;
+	if(r->leftChild)s=r->lsize+=addLsize(r->leftChild);
+	if(r->rightChild)s+=addLsize(r->rightChild);
+	return s;
+}
+
+
+template<class T>
+LbinTreeNode<T>*&LBT<T>::location(int k){
+	addLsize(root);
+	LbinTreeNode<T>*t=NULL;
+	loca(root,t,k);
+	return t;
+}
+
+
+template<class T>
+void LBT<T>::loca(LbinTreeNode<T>*r,LbinTreeNode<T>*&t,int k){
+	if(t)return;
+	if(k==r->lsize)t=r;
+	else if(k<r->lsize)loca(r->leftChild,t,k);
+	else {
+		k-=r->lsize;
+		loca(r->rightChild,t,k);
+	}
+}
+
+
+
+template<class T>//第八章第八题
+void LBT<T>::BMX(LbinTreeNode<T>*r,T x){
+	if(r!=NULL){
+		BMX(r->rightChild,x);
+		if(r->date>=x)std::cout<<r->date<<endl;
+		BMX(r->leftChild,x);
+	}
+}
+
+
+
+template<class T>
+bool LBT<T>::isBST(){//第八章第七题
+	bool is=true;
+	LbinTreeNode<T>*t=NULL;
+	inOD(root,is,t);
+	return is;
+}
+
+template<class T>//第八章第七题核心代码
+void LBT<T>::inOD(LbinTreeNode<T>*r,bool &is,LbinTreeNode<T> *t){
+	if(r!=NULL){
+		inOD(r->leftChild,is,t);
+		if(t==NULL){
+			t=new LbinTreeNode<T>(r->date);
+		}
+		else {
+			if(r->date < t->date)is=false;
+			else t->date=r->date;
+		}
+		inOD(r->rightChild,is,t);
+	}
+}
 
 template <class T>
 bool similar(LbinTreeNode<T>*a,LbinTreeNode<T>*b){
