@@ -1,5 +1,4 @@
 #include <iostream>     //哈夫曼树   哈夫曼编码   
-#include <bitset>
 #include <algorithm>
 #include <queue>
 #include <string>
@@ -44,7 +43,6 @@ int main(){
 			sum+=r-l;  //因为哈弗曼书中左子树总是比右子树小
 			lch[si]=l;  //所以sum 表示哈弗曼树左右子树中全部交换后还能增加多少
 			rch[si++]=r;
-			cout<<l<<"                 666666666666"<<endl;
 		}
      
 		if(left<0||left>sum){
