@@ -1,33 +1,4 @@
-<<<<<<< HEAD
-#include "Node.h"
-#ifndef BST_
-#define BST_
-class BST{
-protected:
-	Node *root;
-public:
-	BST(int t);
-	void add(Node*r,int t);
-private:
-	void build(int t);
-	
-};
-#endif
-BST::BST(int t){
-	root=new Node(t);
-}
 
-void BST::build(int t){
-	add(root,t);
-}
-
-void BST::add(Node*r,int t){
-	if(r){
-		if(r->data>t){
-			if
-		}
-	}
-=======
 #ifndef BST_
 #define BST_
 #include "BSTN.h"
@@ -107,5 +78,5 @@ BSTN<T>* BST<T>::innerf(T &key,BSTN<T> *&f){
 template<class T>
 bool BST<T>::isEmpty(){
 	return counts==0;
->>>>>>> da5a85e1e748cdef91e069278d50c4418ea325a3
+//>>>>>>> da5a85e1e748cdef91e069278d50c4418ea325a3
 }
