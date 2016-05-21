@@ -1,10 +1,10 @@
 /*************************************************************************
-	> File Name: baidua.cpp
+	> File Name: x_y.cpp
 	> Author: yahaa
 	> Mail: yuanzihua0@gmail.com 
 	> QQ:1477765176 
 	> Wechat:w1477765176 
-	> Created Time: 2016年05月21日 星期六 15时59分04秒
+	> Created Time: 2016年05月21日 星期六 19时41分13秒
  ************************************************************************/
 
 #include <iostream>
@@ -37,25 +37,21 @@ int main(){
 	//freopen("xxxxout.txt","w",stdout);
 	int t;
 	cin>>t;
-	int tt=1;
+	ll n;
 	while(t--){
-		int x,m,k,c;
-		cin>>x>>m>>k>>c;
-		int sum=0;
-		ll mm=1;
-	
-		for(int i=1;i<=m;i++){
-			if(mm>=k){
-				sum+=mm%k;
-			}
-			else sum+=mm;
-			mm*=10;
+		scanf("%lld",&n);
+		if(n%2){
+			if(n==1)cout<<"False"<<endl;
+			else cout<<"True"<<endl;
 		}
-		printf("Case #%d:\n",tt++);
-		if(((x%k)*sum)%k==c)cout<<"Yes"<<endl;
-		else cout<<"No"<<endl;
+		else {
+			if(n%4==0){
+				if(n==4)cout<<"False"<<endl;
+				else cout<<"True"<<endl;
+			}
+			else cout<<"False"<<endl;
+		}
 	}
-
 	return 0;
 }
 
