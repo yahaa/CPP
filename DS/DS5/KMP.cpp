@@ -5,40 +5,33 @@
 #include <vector>
 using namespace std;
 
-
-void getNext(const string &pat, int *Next){
-	int j = 0, k = -1;             
-	Next[0] = -1;                     
-	while (j<pat.length() - 1){
-		if (k == -1 || pat[k] == pat[j]){
-			 j++;
-			 k++;
-			 if(pat[j]==pat[k])Next[j]=Next[k];
-			 else Next[j]=k;
-		}
-		else k = Next[k];
+void getNext(const string &pat, int *next){
+	
+	next[0]=-1;				             // 鍒濆f[0]鐨勫�间负-1
+	int j = 0, k = -1;		
+	while (j < pat.length() - 1){
+		if (k == -1 || pat[k] == pat[j])next[++j]=++k;
+		else k = next[k];
 	}
+		
 }
-//Next数组
+
 int KMP_Find(const string &ob, const string &pat){
-	int *Next = new int[pat.length()];
-	getNext(pat, Next);
-	for(int ii=0;ii<pat.length();ii++)cout<<Next[ii]<<" ";
-	cout<<endl;
-	cout<<ob.length()<<" "<<pat.length()<<endl;
-	cout<<"-----"<<endl;
-	int i=0,k=-1;
-	int nn=ob.length(),mm=pat.length();
-	while(i < nn && k < mm){
-		if (k==-1||pat[k] == ob[i]){       
+	int *next = new int[pat.length()];
+	getNext(pat, next);
+	
+	int i=0,j=0;
+	int n=ob.length(),m=pat.length();
+	while(i < n && j < m&&n-i>=m){
+		if (j==-1||pat[j] == ob[i]){       
 			i++;    
-			k++;
+			j++;
 		}
-		else k =Next[k];
+		else j =next[j];
 	}
-	delete []Next;
-	if (k< pat.length())return -1;
-	else return i - k;
+	delete []next;
+	if (j< pat.length())return -1;
+	else return i-j;
 }
 int main(){
 	string s;

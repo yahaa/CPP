@@ -47,8 +47,7 @@ public:
 			}
 			loca=loca->next[index];
 		}
-		if(f)return loca->count;
-		else return 0;
+		return f?loca->count:0;
 	}
 
 	void del(){
