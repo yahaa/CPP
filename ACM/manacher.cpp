@@ -1,8 +1,8 @@
 /*************************************************************************
-	> File Name: hdu1538.cpp
+	> File Name: manacher_poj3974.cpp
 	> Author: yahaa
 	> Mail: yuanzihua0@gmail.com 
-	> Created Time: 2016年07月29日 星期五 17时21分20秒
+	> Created Time: 2016年08月01日 星期一 18时11分44秒
  ************************************************************************/
 
 #include <iostream>
@@ -30,34 +30,38 @@
 #define INF 0X3FFFF
 using namespace std;
 
-void getNext(string pat,int *next){
-	next[0]=-1;
-	int j=0,k=-1;
-	while(j<pat.length()){
-		if(k==-1||pat[j]==pat[k])next[++j]=++k;
-		else k=next[k];
+const int MAXN=1000005;
+char Ma[MAXN*2];
+int Mp[MAXN*2];
+void Manacher(string s){
+	int len=s.length();
+	int l=0;
+	Ma[l++]='$';
+	Ma[l++]='#';
+	for(int i=0;i<len;i++){
+		Ma[l++]=s[i];
+		Ma[l++]='#';
+	}
+	Ma[l]=0;
+	int mx=0,id=0;
+	for(int i=0;i<l;i++){
+		Mp[i]=mx>i?min(Mp[2*id-i],mx-i):1;
+		while(Ma[i+Mp[i]]==Ma[i-Mp[i]])Mp[i]++;
+		if(i+Mp[i]>mx){
+			mx=i+Mp[i];
+			id=i;
+		}
 	}
 }
 
 int main(){
-	//freopen("xxxxin.txt","r",stdin);
-	//freopen("xxxxout.txt","w",stdout);
-	int n;
 	string s;
-	int k=1;
-
-	while(scanf("%d",&n)&&n){
-		cin>>s;
-		int *next=new int[s.length()+1];
-		getNext(s,next);
-		printf("Test case #%d\n",k++);
-		for(int i=1;i<=n;i++){
-			int j=i-next[i];
-			if(i%j==0&&next[i])printf("%d %d\n",i,i/j);
-		}
-		printf("\n");
+	while(cin>>s){
+		if(s=="END")break;
+		Manacher(s);
+		int ans=0;
+		for(int i=0;i<2*s.length()+2;i++)ans=max(ans,Mp[i]-1);
+		printf("%d\n",ans);
 	}
-
 	return 0;
 }
-

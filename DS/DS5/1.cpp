@@ -48,15 +48,8 @@ int  KMP_Find(const string &ob, const string &pat){
 	return 1;
 }
 int main(){
-	string s1,s2;
-	cin>>s1;
-	getchar();
-	while(cin>>s2){
-	KMP_Find(s1,s2);
-	cout<<s1<<" "<<endl;
-	for(int i=0;i<ans.size();i++)cout<<ans[i]<<" ";
-
-	}
+	int aaa[100];
+	fill(aaa,aaa+100,10);
 }
 
 
