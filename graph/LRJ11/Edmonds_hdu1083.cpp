@@ -14,17 +14,12 @@
 using namespace std;
 const int maxv=405;
 const int INF=0XFFFF;
-<<<<<<< HEAD
-int G[maxv][maxv];
-=======
-int p,n;
+
 vector<int> G[maxv];
->>>>>>> 6bb618f4aa81f2442abc3bea5a833898e345055c
 int match[maxv];
 bool used[maxv];
 int p,n;
 
-<<<<<<< HEAD
 int dfs(int u){
 	for(int i=1;i<=n;i++){
 		if(G[u][i]&&!used[i]){
@@ -37,7 +32,7 @@ int dfs(int u){
 		}
 	}
 	return 0;
-=======
+
 void add_edge(int u,int v){
 	G[u].push_back(v);
 }
@@ -68,21 +63,16 @@ int bipartite_matching(){
 
 void init(){
 	for(int i=0;i<maxv;i++)G[i].clear();
->>>>>>> 6bb618f4aa81f2442abc3bea5a833898e345055c
 }
 
 int main(){
 	int t;
 	cin>>t;
-<<<<<<< HEAD
 	int count,vt;
-=======
->>>>>>> 6bb618f4aa81f2442abc3bea5a833898e345055c
 	while(t--){
 		memset(G,0,sizeof(G));
 		memset(match,0,sizeof(match));
 		cin>>p>>n;
-<<<<<<< HEAD
 		for(int i=1;i<=p;i++){
 			cin>>count;
 			while(count--){
@@ -96,7 +86,7 @@ int main(){
 			memset(used,0,sizeof(used));
 			if(dfs(i))ans++;
 		}
-=======
+
 		int count,s;
 		for(int i=1;i<=p;i++){
 			cin>>count;
@@ -106,13 +96,11 @@ int main(){
 			}
 		}
 		int ans=bipartite_matching();
->>>>>>> 6bb618f4aa81f2442abc3bea5a833898e345055c
 		if(ans==p)cout<<"YES"<<endl;
 		else cout<<"NO"<<endl;	
 	}
 	return 0;
-<<<<<<< HEAD
-=======
+
 }
 
 
@@ -184,5 +172,4 @@ int main(){
         else cout<<"NO"<<endl;    
     }
     return 0;
->>>>>>> 6bb618f4aa81f2442abc3bea5a833898e345055c
 }
