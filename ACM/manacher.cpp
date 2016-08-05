@@ -59,7 +59,6 @@ int main(){
 	while(cin>>s){
 		if(s=="END")break;
 		Manacher(s);
-		int ans=0;
 		for(int i=0;i<2*s.length()+2;i++)ans=max(ans,Mp[i]-1);
 		printf("%d\n",ans);
 	}
