@@ -1,8 +1,8 @@
 /*************************************************************************
-	> File Name: hdu1017.cpp
+	> File Name: hdu1097.cpp
 	> Author: yahaa
 	> Mail: yuanzihua0@gmail.com 
-	> Created Time: 2016年08月05日 星期五 14时39分05秒
+	> Created Time: 2016年08月07日 星期日 18时52分23秒
  ************************************************************************/
 
 #include <iostream>
@@ -29,38 +29,41 @@
 #define ll long long
 #define INF 0X3FFFF
 using namespace std;
-
-bool can(int a,int b,int m){
-	return (a*a+b*b+m)%(a*b)==0?true:false;
+int a[10];
+void find(){
+	a[0]=0;
+	a[1]=1;
+	for(int i=2;i<=9;i++){
+		int t=i;
+		int c=1;
+		while(1){
+			t*=i;
+			int e=t%10;
+			if(e==i)break;
+			c++;
+		}
+		a[i]=c;
+	}
 }
-
 int main(){
+
 	//freopen("xxxxin.txt","r",stdin);
 	//freopen("xxxxout.txt","w",stdout);
+	find();
+	int n,m;
+	while(cin>>n>>m){
+			int e=n%10;
+			if(e==0||e==1){
+				cout<<e<<endl;
+				continue;
+			}
+			int c=a[e];
+			int re=m%c;
+			re=(re==0)?c:re;
+			cout<<((int)pow(e,re))%10<<endl;
 
-	// int t;
-	// cin>>t;
-	// for(int ii=0;ii<t;ii++){
-	// 	if(ii)printf("\n");
-	// 	int n,m;
-	// 	int k=1;
-	// 	while(cin>>n>>m){
-	// 		if(n==0&&m==0)break;
-	// 		int ans=0;
-	// 		for(int i=1;i<n;i++){
-	// 			for(int j=i+1;j<n;j++){
-	// 				if(can(i,j,m))ans++;
-	// 			}
-	// 		}
-	// 		printf("Case %d: %d\n",k++,ans);
-	// 	}
-	// }
-
-	int p[100];
-	fill(p,p+10,1);
-	for(int i=0;i<10;i++){
-		cout<<p[i]<<endl;
 	}
+
 	return 0;
 }
 

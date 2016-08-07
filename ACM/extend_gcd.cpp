@@ -9,6 +9,8 @@ int exGcd(int a,int b,int &x,int &y){
     int t=x;x=y;y=t-a/b*y;
     return r;
 }
+//求2对于1e9+7的逆元就是 exgcd(2, 1e9+7, x, y),其中x的值就是inv2，
+
 
 int GCD(int a,int b){
 	if(b==0)return a;

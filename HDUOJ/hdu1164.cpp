@@ -1,8 +1,8 @@
 /*************************************************************************
-	> File Name: hdu1017.cpp
+	> File Name: hdu1164.cpp
 	> Author: yahaa
 	> Mail: yuanzihua0@gmail.com 
-	> Created Time: 2016年08月05日 星期五 14时39分05秒
+	> Created Time: 2016年08月07日 星期日 19时43分05秒
  ************************************************************************/
 
 #include <iostream>
@@ -29,38 +29,49 @@
 #define ll long long
 #define INF 0X3FFFF
 using namespace std;
+const int maxn=66666;
+bool prime[maxn];
+int p[300];
 
-bool can(int a,int b,int m){
-	return (a*a+b*b+m)%(a*b)==0?true:false;
+void getPrime(){
+	MS(prime,true);
+	MS(p,0);
+	int index=0;
+	for(int i=2;i<=sqrt(maxn);i++){
+		if(prime[i]){
+			p[index++]=i;
+			for(int j=i+i;j<maxn;j+=i){
+				prime[j]=false;
+			}
+		}
+	}
 }
+
 
 int main(){
 	//freopen("xxxxin.txt","r",stdin);
 	//freopen("xxxxout.txt","w",stdout);
-
-	// int t;
-	// cin>>t;
-	// for(int ii=0;ii<t;ii++){
-	// 	if(ii)printf("\n");
-	// 	int n,m;
-	// 	int k=1;
-	// 	while(cin>>n>>m){
-	// 		if(n==0&&m==0)break;
-	// 		int ans=0;
-	// 		for(int i=1;i<n;i++){
-	// 			for(int j=i+1;j<n;j++){
-	// 				if(can(i,j,m))ans++;
-	// 			}
-	// 		}
-	// 		printf("Case %d: %d\n",k++,ans);
-	// 	}
-	// }
-
-	int p[100];
-	fill(p,p+10,1);
-	for(int i=0;i<10;i++){
-		cout<<p[i]<<endl;
+	getPrime();
+	int n;
+	while(cin>>n){
+		int t=0;
+		for(int i=0;p[i]*p[i]<=n;i++){
+			if(n%p[i]==0){
+				while(n%p[i]==0){
+					if(t==0)cout<<p[i];
+					else cout<<"*"<<p[i];
+					n/=p[i];
+					t++;
+				}
+			}
+		}
+		if(n>1){
+			if(t)cout<<"*"<<n;
+			else cout<<n;
+		}
+		cout<<endl;
 	}
+
 	return 0;
 }
 
