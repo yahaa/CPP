@@ -22,10 +22,10 @@
 #include <map>
 #include <set>
 #include <assert.h>
-#include<string>
-#include<istream>
-#include<iostream>
-#include<cstring>
+#include <string>
+#include <istream>
+#include <iostream>
+#include <cstring>
 using namespace std;
 const string BASE = "0123456789";
 string  add(string a, string b){
