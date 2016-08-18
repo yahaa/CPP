@@ -29,6 +29,7 @@ int  solve(){//第一种做法
 int solve2(){
 	fill(dp,dp+n,INF);
 	for(int i=0;i<n;i++){
+		cout<<lower_bound(dp,dp+n,a[i])-dp;
 		*lower_bound(dp,dp+n,a[i])=a[i];
 	}
 	return lower_bound(dp,dp+n,INF)-dp;
