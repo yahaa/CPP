@@ -37,11 +37,11 @@ int main(){
 		for(int i=1;i<=n;i++){
 			cin>>a[i];
 			a[i+n]=a[i];
-			dp[i][i]=0;
 		}
 		n*=2;
 		for(int i=1;i<=n;i++){
 			sum[i]=sum[i-1]+a[i];
+			dp[i][i]=0;
 		}
 		for(int i=n-1;i>=1;i--){
 			for(int j=i+1;j<=n;j++){
@@ -51,7 +51,7 @@ int main(){
 			}
 		}
 		int ans=10000000;
-		for(int i=1;i<=n/2-1;i++){
+		for(int i=1;i<=n/2;i++){
 			ans=min(dp[i][i+n/2-1],ans);
 		}
 		cout<<ans<<endl;
@@ -71,7 +71,7 @@ int main(){
 		}
 
 		ans=10000000;
-		for(int i=1;i<=n/2-1;i++){
+		for(int i=1;i<=n/2;i++){
 			ans=min(dp[i][i+n/2-1],ans);
 		}
 		cout<<-ans<<endl;
