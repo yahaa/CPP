@@ -45,7 +45,7 @@ int main(){
 			ans++;
 			select(i);
 		}
-		cout<<ans<<endl;
+		cout<<ans+1<<endl;
 	}
 	return 0;
 }
