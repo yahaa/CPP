@@ -22,16 +22,13 @@ int Prim(int cost[][MAXN],int n){
 			if(!vis[j]&&minc>lowc[j]){
 				minc=lowc[j];
 				p=j;
-				
 			}
 		if(minc==INF)return -1;
-		
 		ans+=minc;
 		vis[p]=true;
 		for(int j=0;j<n;j++)
 		if(!vis[j]&&lowc[j]>cost[p][j]){
 			lowc[j]=cost[p][j];
-			if(minc)all.push_back(make_pair(i,p));
 		}	
 	}
 	return ans;
