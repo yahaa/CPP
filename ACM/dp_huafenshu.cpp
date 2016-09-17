@@ -97,33 +97,33 @@ dp[i][j]为ｉ划分为最大数不超过　j 的划分
 
 
 
-// /*第四类
-// 将n划分为k个整数的划分数
-// 设dp[i][j]为将i划分为j个整数的划分数
-// 分析:
-// 		a.i<j ,dp[i][j]=0;
-// 		b.i=j ,dp[i][j]=1;
-// 		c.i>j ,分为两类情况　划分中 ai >1,和划分中　ai=1 ,所以dp[i][j]=dp[i-j][j]+dp[i-1][j-1]
-// */
-// #include <iostream>
-// using namespace std;
-// const int maxn=125;
-// int dp[maxn][maxn];
-// int main(){
-// 	int n,k;
-// 	while(cin>>n>>k){
-// 		dp[0][0]=0;
-// 		for(int i=1;i<=n;i++){
-// 			for(int j=1;j<=k;j++){
-// 				if(i<j)dp[i][j]=0;
-// 				else if(i==j)dp[i][j]=1;
-// 				else dp[i][j]=dp[i-j][j]+dp[i-1][j-1];
-// 			}
-// 		}
-// 		cout<<dp[n][k]<<endl;
-// 	}
-// 	return 0;
-// }
+/*第四类
+将n划分为k个整数的划分数
+设dp[i][j]为将i划分为j个整数的划分数
+分析:
+		a.i<j ,dp[i][j]=0;
+		b.i=j ,dp[i][j]=1;
+		c.i>j ,分为两类情况　划分中 ai >1,和划分中　ai=1 ,所以dp[i][j]=dp[i-j][j]+dp[i-1][j-1]
+*/
+#include <iostream>
+using namespace std;
+const int maxn=125;
+int dp[maxn][maxn];
+int main(){
+	int n,k;
+	while(cin>>n>>k){
+		dp[0][0]=0;
+		for(int i=1;i<=n;i++){
+			for(int j=1;j<=k;j++){
+				if(i<j)dp[i][j]=0;
+				else if(i==j)dp[i][j]=1;
+				else dp[i][j]=dp[i-j][j]+dp[i-1][j-1];
+			}
+		}
+		cout<<dp[n][k]<<endl;
+	}
+	return 0;
+}
 
 
 
@@ -138,26 +138,26 @@ dp[i][j]为ｉ划分为最大数不超过　j 的划分
 	5.f[i][j]中有包含1的划分方案和不包含1的划分方案 所以f[i][j]=g[i-j][j]+f[i-1][j-1]
 	6.f[n][0]+f[n][1]+……+f[n][n]为将n划分为若干奇数的划分数
 */
-#include <iostream>
-using namespace std;
-const int maxn=105;
-int f[maxn][maxn];
-int g[maxn][maxn];
+// #include <iostream>
+// using namespace std;
+// const int maxn=105;
+// int f[maxn][maxn];
+// int g[maxn][maxn];
 
-int main(){
-	int n;
-	while(cin>>n){
-		f[0][0]=1;
-		g[0][0]=1;
-		for(int i=1;i<=n;i++){
-			for(int j=1;j<=i;j++){
-				g[i][j]=f[i-j][j];
-				f[i][j]=g[i-j][j]+f[i-1][j-1];
-			}
-		}
-		int ans=0;
-		for(int i=0;i<=n;i++)ans+=f[n][i];
-		cout<<ans<<endl;
-	}
-	return 0;
-}
+// int main(){
+// 	int n;
+// 	while(cin>>n){
+// 		f[0][0]=1;
+// 		g[0][0]=1;
+// 		for(int i=1;i<=n;i++){
+// 			for(int j=1;j<=i;j++){
+// 				g[i][j]=f[i-j][j];
+// 				f[i][j]=g[i-j][j]+f[i-1][j-1];
+// 			}
+// 		}
+// 		int ans=0;
+// 		for(int i=0;i<=n;i++)ans+=f[n][i];
+// 		cout<<ans<<endl;
+// 	}
+// 	return 0;
+// }

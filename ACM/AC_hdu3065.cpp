@@ -30,7 +30,7 @@
 #define INF 0X3FFFF
 using namespace std;
 
-const int maxn=130;
+const int maxn=30;
 map<string,int>mp;
 
 struct node{
@@ -92,12 +92,13 @@ public:
 	void insert(string s){
 		node *loca=root;
 		for(int i=0;i<s.length();i++){
-			int index=s[i]-31;
+			int index=s[i]-'a';
 			if(!loca->next[index])loca->next[index]=new node;
+			loca->count++;
+			loca->s=s.substr(0,i+1);
 			loca=loca->next[index];
 		}
-		loca->count++;
-		loca->s=s;
+		
 	}
 
 	void query(string s){
@@ -105,7 +106,7 @@ public:
 		mp.clear();
 		node *p=root;
 		for(int i=0;i<s.length();i++){
-			int index=s[i]-31;
+			int index=s[i]-'a';
 			while(p->next[index]==NULL&&p!=root)p=p->fail;
 			p=p->next[index];
 			p=(p==NULL)?root:p;
@@ -127,34 +128,49 @@ public:
 
 };
 
-char wo[55];
-char ch[2000005];
-vector<string>ins;
 
 int main(){
-	//freopen("xxxxin.txt","r",stdin);
-	//freopen("xxxxout.txt","w",stdout);
-	int n;
 	string s;
-	while(scanf("%d",&n)!=EOF){
-		ins.clear();
+	int m;
+	while(cin>>s>>m){
 		AC a;
-		for(int i=0;i<n;i++){
-			scanf("%s",wo);
-			s=wo;
-			ins.push_back(s);
-			a.insert(s);
-		}
-		getchar();
-		getline(cin,s);
-		a.query(s);
-		for(int i=0;i<n;i++){
-			if(mp[ins[i]])cout<<ins[i]<<": "<<mp[ins[i]]<<endl;
-		}
+		int tmp=0;
+		a.insert(s);
+		int op,l,r;
+		char inchar;
+		while(m--){
+			cin>>op;
+			if(op==1){
+				cin>>inchar;
+				s+=inchar;
+				a.insert(s);
+			}
+			else{
+				cin>>l>>r;
+				int len=s.length();
+				l=(l-1+tmp)%len+1;
+				r=(r-1+tmp)%len+1;
+				string t=s.substr(l-1,r-l+1);
+				a.query(t);
+				int ans=-1;
+				bool ok=false;
+				for(map<string,int>::iterator it=mp.begin();it!=mp.end();++it){
+					if(it->second>=2){
+						ok=true;
+						int tlen=it->first.length();
+						ans=max(ans,tlen);
+					}
+				}
 
-		a.del();
+				if(ans==-1)ans=1;
+				tmp%=ans;
+				if(ok){
+					printf("%d\n",ans);
+				}
+				else printf("%d\n",0);
+			}
+		}
 	}
-
 
 	return 0;
 }

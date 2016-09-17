@@ -52,9 +52,6 @@ int main(){
 	}
 	sort(lefts,lefts+l,cmp);
 	sort(rights,rights+r,cmp);
-	// for(int i=0;i<l;i++)cout<<lefts[i].v<<" ";
-	// cout<<endl;
-	// for(int i=0;i<r;i++)cout<<rights[i].v<<" ";
 	int ans=0;
 	if(l<r){
 		for(int i=0;i<l;i++){
@@ -80,7 +77,6 @@ int main(){
 			ans+=lefts[i].v;
 		}
 	}
-
 	cout<<ans<<endl;
 	return 0;
 }
