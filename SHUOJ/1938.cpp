@@ -4,11 +4,11 @@
 
 using namespace std;
 typedef long long ll;
-const int N = 200005;
+const int N =100000000;
 
 bool prime[N];
-int p[N];
-int cnt;
+ll p[N];
+ll cnt;
 
 void isprime(){
     cnt = 0;
@@ -22,17 +22,6 @@ void isprime(){
     }
 }
 
-ll quick_mod(ll a,ll b,ll m){
-    ll ans = 1;
-    a %= m;
-    while(b){
-        if(b & 1)ans = ans * a % m;
-        b >>= 1;
-        a = a * a % m;
-    }
-    return ans;
-}
-
 ll work(ll n,ll p){
     ll ans = 0;
     while(n){
@@ -42,27 +31,22 @@ ll work(ll n,ll p){
     return ans;
 }
 
-ll Solve(ll n,ll m,ll P){
-    ll ans = 1;
+ll Solve(ll n){
+    ll ans = 0;
     for(int i=0; i<cnt && p[i]<=n; i++){
-        ll x = work(n, p[i]);
-        ll y = work(n - m, p[i]);
-        ll z = work(m, p[i]);
-        x -= (y + z);
-        ans=ans*quick_mod(p[i],x,P)%P;
-        ans %= P;
+         int t=work(n, p[i]);
+         if(t>0)ans++;
     }
     return ans;
 }
 
 int main(){
-    int t;
+
     isprime();
-    cin>>t;
-    while(t--){
-        ll n,m,P;
-        cin>>n>>m>>P;
-        cout<<Solve(n,m,P)<<endl;
+    cout<<cnt<<endl;
+    ll n;
+    while(cin>>n){
+        cout<<Solve(n)<<endl;
     }
     return 0;
 }
