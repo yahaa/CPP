@@ -88,14 +88,14 @@ int main(){
 	while(t--){
 		init();
 		cin>>p>>n;
-		int s=n+p+2,t=s+1;
+		int s=n+p+2,t=s+1;//自己新建起点和汇点的例题 
 		for(int i=1;i<=n;i++)add_edge(s,i,1);
 		for(int i=1;i<=p;i++)add_edge(n+i,t,1);
 		for(int i=1;i<=p;i++){
 			int count,t;
 			cin>>count;
 			while(count--){
-				cin>>t;
+				cin>>t;//这个t 和上面的t 没有冲突
 				add_edge(t,n+i,1);
 			}
 		}
