@@ -75,12 +75,9 @@ int main(){
 			for(int i=0;i<n;i++){
 				tsum1+=a[i]*b[(i+k)%n];
 			}
-			sum=max(sum,tsum1);
-		}
+			sum=max(sum,tsum1)
 		
 		cout<<suma+sumb-2*sum<<endl;
-
-
 	}
 	return 0;
 }

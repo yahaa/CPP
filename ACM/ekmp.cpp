@@ -3,7 +3,7 @@
 #include <string>
 #include <cstring>
 using namespace std;
-
+//
 void getNext(string x,int next[]){
 	int m=x.length();
 	next[0]=m;

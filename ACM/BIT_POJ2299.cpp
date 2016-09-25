@@ -63,8 +63,6 @@ int main(){
 			cout<<sum(a[i].soi)<<"tttt"<<endl;
 			add(a[i].soi,1);
 		}
-
-
 		printf("%lld\n",ans);
 	}
 	return 0;

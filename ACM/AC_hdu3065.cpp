@@ -124,8 +124,6 @@ public:
 	void del(){
 		delete_tree(root);
 	}
-	
-
 };
 
 
